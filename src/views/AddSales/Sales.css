@@ -1,0 +1,173 @@
+/* === Page Container === */
+.sales-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* === Glass Header === */
+.header-glass {
+  position: relative;
+  height: 50px;
+  background: linear-gradient(135deg, #4e54c8, #8f94fb);
+  border-radius: 16px;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+}
+
+.header-glass h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 0;
+  z-index: 1;
+  color: #fff;
+  text-align: center;
+}
+
+/* === Form === */
+.sales-form {
+  background: #f9f9f9;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+  margin-bottom: 2rem;
+}
+
+.sales-form h2 {
+  margin-bottom: 1.5rem;
+  color: #2b6cb0;
+  font-size: 1.5rem;
+}
+
+/* Two-column layout */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row label {
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-row input,
+.form-row select {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background-color: #fff;
+  transition: border 0.2s ease;
+}
+
+.form-row input:focus,
+.form-row select:focus {
+  border-color: #2b6cb0;
+  outline: none;
+}
+
+.submit-btn {
+  margin-top: 1.5rem;
+  padding: 12px 24px;
+  background-color: #2b6cb0;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #1a4f90;
+}
+
+/* === Table === */
+.sales-table-wrapper {
+  overflow-x: auto;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.sales-table-wrapper h3 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  color: #333;
+}
+
+.sales-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.sales-table thead {
+  background-color: #2b6cb0;
+  color: white;
+}
+
+.sales-table th,
+.sales-table td {
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.sales-table tbody tr:nth-child(even) {
+  background-color: #f4f6f8;
+}
+
+.sales-table tbody tr:hover {
+  background-color: #eef2f7;
+}
+
+.sales-table td {
+  color: #333;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .submit-btn {
+    width: 100%;
+  }
+
+  .header-glass {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .header-glass h2 {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-glass h2 {
+    font-size: 1rem;
+    text-align: center;
+  }
+}
