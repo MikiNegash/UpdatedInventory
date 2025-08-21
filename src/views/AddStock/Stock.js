@@ -54,8 +54,11 @@ const Stock = () => {
                     quantity_added: '',
                     quantity_unit: '',
                     unit_price: '',
+                    purchaseprice:'',
+                    shippingcost:'',
                     vendor_name: '',
                     added_date: new Date().toISOString().split('T')[0],
+
                 })
                 showSnackbar('✅ Stock added successfully!', 'success')
             }
@@ -91,6 +94,7 @@ const Stock = () => {
                             placeholder="Texture"
                             value={stockItem.texture}
                             onChange={handleChange}
+                            required
                         />
                     </div>
 
@@ -101,6 +105,7 @@ const Stock = () => {
                             placeholder="Length"
                             value={stockItem.length}
                             onChange={handleChange}
+                            required
                         />
                     </div>
 
@@ -111,6 +116,7 @@ const Stock = () => {
                             placeholder="Color"
                             value={stockItem.color}
                             onChange={handleChange}
+                            required
                         />
                     </div>
 
@@ -134,16 +140,36 @@ const Stock = () => {
                         />
                     </div>
 
-                    <div className="form-row">
+                   
+                     <div className="form-row">
                         <CFormInput
                             type="number"
-                            name="unit_price"
-                            placeholder="Unit Price"
-                            value={stockItem.unit_price}
+                            name="purchaseprice"
+                            placeholder="Purchase Price"
+                            value={stockItem.purchaseprice}
                             onChange={handleChange}
                         />
                     </div>
-
+                    
+                      <div className="form-row">
+                        <CFormInput
+                            type="number"
+                            name="shippingcost"
+                            placeholder="Shipping Cost"
+                            value={stockItem.shippingcost}
+                            onChange={handleChange}
+                        />
+                    </div>
+                     <div className="form-row">
+                        <CFormInput
+                            type="number"
+                            name="unit_price"
+                            placeholder="Saleing Price"
+                            value={stockItem.unit_price}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
                     <div className="form-row">
                         <CFormInput
                             type="text"

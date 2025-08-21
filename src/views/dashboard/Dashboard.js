@@ -102,8 +102,6 @@ const Dashboard = () => {
                     <CTableHeaderCell className="bg-body-tertiary">Product Type</CTableHeaderCell>
                     <CTableHeaderCell className="bg-body-tertiary">Total Quantity</CTableHeaderCell>
                     <CTableHeaderCell className="bg-body-tertiary">Latest Available</CTableHeaderCell>
-                   {/*  <CTableHeaderCell className="bg-body-tertiary">Rate</CTableHeaderCell>
-                    <CTableHeaderCell className="bg-body-tertiary">Total Selling</CTableHeaderCell> */}
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>
@@ -111,7 +109,7 @@ const Dashboard = () => {
                     <CTableRow key={index}>
                       <CTableDataCell>{item.product_type}</CTableDataCell>
                       <CTableDataCell>{item.total_quantity}</CTableDataCell>
-                      <CTableDataCell>{renderStockBadge(item.latest_quantity_available)}</CTableDataCell>
+                      <CTableDataCell>{renderStockBadge(item.total_quantity)}</CTableDataCell>
                      {/*  <CTableDataCell>{item.rate}</CTableDataCell>
                       <CTableDataCell>{item.total_selling}</CTableDataCell> */}
                     </CTableRow>

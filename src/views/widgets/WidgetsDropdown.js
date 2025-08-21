@@ -39,7 +39,7 @@ const WidgetsDropdown = ({ className }) => {
     const today = getTodayDateString()
 
     axios
-      .get(`https://robo-rec.com/api/inventorybydate?from=2025-07-01&to=${today}`)
+      .get(`https://robo-rec.com/api/inventorybydate?from=2025-08-01&to=${today}`)
       .then((res) => setStats(res.data))
       .catch((err) => console.error('Failed to fetch stats:', err))
   }, [])

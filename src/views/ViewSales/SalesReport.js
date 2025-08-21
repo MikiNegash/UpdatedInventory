@@ -28,11 +28,11 @@ const SalesReport = () => {
       const purchasePrice = parseFloat(sale.purchase_price) || 0
       const shippingCost = parseFloat(sale.shipping_cost) || 0
       const rate = parseFloat(sale.rate) || 0
-      const quantity = parseInt(sale.quantity_sold) || 0
+      //const quantity = parseInt(sale.quantity_sold) || 0
 
       const totalPurchase = (purchasePrice + shippingCost).toFixed(2)
-      const totalSelling = (quantity * rate).toFixed(2)
-      const profit = (totalSelling - totalPurchase * quantity).toFixed(2)
+      //const totalSelling = (quantity * rate).toFixed(2)
+      //  const profit = (totalSelling - totalPurchase * quantity).toFixed(2)
 
       return {
         ...sale,
@@ -40,8 +40,8 @@ const SalesReport = () => {
         shipping_cost: shippingCost.toFixed(2),
         rate: rate.toFixed(2),
         total_purchase: totalPurchase,
-        total_selling: totalSelling,
-        profit: profit,
+        // total_selling: totalSelling,
+        //profit: profit,
       }
     })
   }
@@ -59,12 +59,16 @@ const SalesReport = () => {
   const paginatedData = filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
 
   const handleExport = () => {
+    const today = new Date();
+    const formattedDate = today.toISOString().split('T')[0]; // Format: YYYY-MM-DD
     const exportData = filteredData.map((sale) => ({
+    
       Product: sale.product_type,
-      Length: `${sale.length}"`,
+      Texture: sale.texture,
+      Length: sale.length,
       Qty: sale.quantity_sold,
       Unit: sale.quantity_unit,
-      'Unit Price': sale.rate,
+      'Unit Price': sale.price_for_1,
       'Purchase Cost': sale.purchase_price,
       Shipping: sale.shipping_cost,
       'Total Cost': sale.total_purchase,
@@ -74,7 +78,7 @@ const SalesReport = () => {
     }))
     exportToExcel({
       data: exportData,
-      filename: 'sales_report.xlsx',
+      filename: `sales_report ${formattedDate}.xlsx`,
       sheetName: 'Sales Report',
     })
   }
@@ -128,16 +132,18 @@ const SalesReport = () => {
           <thead>
             <tr>
               <th>Product</th>
+              <th>Texture</th>
               <th>Length</th>
-              <th>Qty</th>
-              <th>Unit</th>
-              <th>Unit Price</th>
-              <th>Purchase Cost</th>
-              <th>Shipping</th>
-              <th>Total Cost</th>
-              <th>Revenue</th>
+              <th>Color</th>
+              <th>Qty Sold</th>
+              <th>Qty Unit</th>
+              <th>Price</th>
+              <th>Purchase Price</th>
+              <th>Shipping Cost</th>
+              <th>Total Purchase</th>
+              <th>Total Selling</th>
               <th>Profit</th>
-              <th>Date</th>
+              <th>Sale Date</th>
             </tr>
           </thead>
           <tbody>
@@ -145,16 +151,18 @@ const SalesReport = () => {
               paginatedData.map((sale, index) => (
                 <tr key={`${sale.sale_id}-${index}`}>
                   <td>{sale.product_type}</td>
+                  <td>{sale.texture}"</td>
                   <td>{sale.length}"</td>
+                  <td>{sale.color}"</td>
                   <td>{sale.quantity_sold}</td>
                   <td>{sale.quantity_unit}</td>
-                  <td>${sale.rate}</td>
-                  <td>${sale.purchase_price}</td>
-                  <td>${sale.shipping_cost}</td>
-                  <td>${sale.total_purchase}</td>
-                  <td>${sale.total_selling}</td>
+                  <td>{sale.price_for_1}</td>
+                  <td>{sale.purchase_price}</td>
+                  <td>{sale.shipping_cost}</td>
+                  <td>{sale.total_purchase}</td>
+                  <td>{sale.total_selling}</td>
                   <td className={parseFloat(sale.profit) >= 0 ? 'profit-positive' : 'profit-negative'}>
-                    ${sale.profit}
+                    {sale.profit}
                   </td>
                   <td>{sale.sale_date}</td>
                 </tr>

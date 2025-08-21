@@ -15,7 +15,9 @@ import {
   cilStar,
   cilCash,
   cilChart,
-  cilStorage
+  cilStorage,
+  cilStream,
+  cilSettings
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
@@ -55,6 +57,12 @@ const _nav = [
     to: '/ViewStock',
     icon: <CIcon icon={cilStorage} customClassName="nav-icon" />,
   }, 
+      {
+    component: CNavItem,
+    name: 'Settings',
+    to: '/product',
+    icon: <CIcon icon={cilSettings} customClassName="nav-icon" />,
+  },
   /* {
     component: CNavItem,
     name: 'Typography',

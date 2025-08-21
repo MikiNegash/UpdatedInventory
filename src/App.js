@@ -26,13 +26,15 @@ const App = () => {
     const theme = urlParams.get('theme') && urlParams.get('theme').match(/^[A-Za-z0-9\s]+/)[0]
     if (theme) {
       setColorMode(theme)
+      return
     }
 
     if (isColorModeSet()) {
       return
     }
 
-    setColorMode(storedTheme)
+    // Set default theme to 'light' if no theme is specified
+    setColorMode(storedTheme || 'light')
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (

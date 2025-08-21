@@ -62,6 +62,10 @@ const Sales = () => {
                 texture: selected.texture || '',
                 length: selected.length || '',
                 color: selected.color || '',
+                quantity_unit: selected.quantity_unit || '',
+                unit_price: selected.unit_price || ''
+               
+
             }))
         } else {
             console.warn('No matching item found for ID:', itemId)
@@ -73,41 +77,62 @@ const Sales = () => {
         setSaleItem((prev) => ({ ...prev, [name]: value }))
     }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
+   const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        const newSale = {
-            sale_id: `${sales.length + 1}`,
-            ...saleItem,
+    const newSale = {
+        sale_id: `${sales.length + 1}`,
+        ...saleItem,
+    };
+
+    try {
+        const response = await axios.post('https://robo-rec.com/api/sales', newSale, {
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (response.status === 200 || response.status === 201) {
+            setSales([newSale, ...sales]);
+            setSaleItem({
+                product_type: '',
+                texture: '',
+                length: '',
+                color: '',
+                quantity_sold: '',
+                quantity_unit: '',
+                unit_price: '',
+                customer_name: '',
+                payment_method: 'Cash',
+                sale_date: new Date().toISOString().split('T')[0],
+            });
+            setSelectedItemId('');
+            showAlert('✅ Sale added successfully!', 'success');
         }
-
-        try {
-            const response = await axios.post('https://robo-rec.com/api/sales', newSale, {
-                headers: { 'Content-Type': 'application/json' },
-            })
-
-            if (response.status === 200 || response.status === 201) {
-                setSales([newSale, ...sales])
-                setSaleItem({
-                    product_type: '',
-                    texture: '',
-                    length: '',
-                    color: '',
-                    quantity_sold: '',
-                    quantity_unit: '',
-                    price_per_unit: '',
-                    customer_name: '',
-                    payment_method: 'Cash',
-                    sale_date: new Date().toISOString().split('T')[0],
-                })
-                setSelectedItemId('')
-                showAlert('✅ Sale added successfully!', 'success')
+    } catch (error) {
+        if (error.response) {
+            // Check specific status codes
+            switch (error.response.status) {
+                case 422:
+                    showAlert('⚠️ Validation error — please check your input.', 'warning');
+                    break;
+                case 500:
+                    showAlert('💥 Server error — please try again later.', 'danger');
+                    break;
+                case 400:
+                    showAlert('💥 Insufficent Stock.', 'danger');
+                    break;
+                default:
+                    showAlert(`❌ Error: ${error.response.status} — Something went wrong.`, 'danger');
             }
-        } catch (error) {
-            console.error('❌ Error posting data:', error)
-            showAlert('❌ Failed to add sale. Try again.', 'danger')
+        } else if (error.request) {
+            // No response from server
+            showAlert('📡 Network error — could not reach server.', 'danger');
+        } else {
+            // Something else happened
+            showAlert(`❌ Unexpected error: ${error.message}`, 'danger');
         }
     }
+};
+
 
     return (
         <div className="sales-container">
@@ -131,21 +156,65 @@ const Sales = () => {
                     </div>
 
                     <div className="form-row">
-                        <CFormInput name="product_type" placeholder="Product Type" value={saleItem.product_type} onChange={handleChange} />
+                        <CFormInput name="product_type" placeholder="Product Type"
+                            value={saleItem.product_type} onChange={handleChange}
+                            required 
+                            readOnly
+                            disabled/>
                     </div>
 
                     <div className="form-row">
 
-                        <CFormInput name="texture" placeholder='Texture' value={saleItem.texture} onChange={handleChange} />
+                        <CFormInput name="texture" placeholder='Texture' value={saleItem.texture}
+                            onChange={handleChange}
+                            required 
+                            readOnly
+                            disabled/>
                     </div>
 
 
                     <div className="form-row">
-                        <CFormInput name="length" placeholder='Length' value={saleItem.length} onChange={handleChange} />
+                        <CFormInput name="length" placeholder='Length' value={saleItem.length}
+                            onChange={handleChange}
+                            required 
+                            readOnly
+                            disabled/>
                     </div>
 
                     <div className="form-row">
-                        <CFormInput name="color" placeholder='Color' value={saleItem.color} onChange={handleChange} />
+                        <CFormInput name="color" placeholder='Color' value={saleItem.color}
+                            onChange={handleChange}
+                            required 
+                            readOnly
+                            disabled/>
+                    </div>
+
+                   
+                     <div className="form-row">
+                        
+                        <CFormInput
+                            type="number"
+                            name="unit_price"
+                            placeholder='Price Perunit'
+                            value={saleItem.unit_price}
+                            onChange={handleChange}
+                            readOnly
+                            disabled
+                        />
+                    </div>
+
+                    <div className="form-row">
+                       
+                        <CFormInput
+                            name="quantity_unit"
+                            placeholder='Quantity Unit'
+                            value={saleItem.quantity_unit}
+                            onChange={handleChange}
+                            required
+                            readOnly
+                            disabled
+
+                        />
                     </div>
 
                     <div className="form-row">
@@ -155,25 +224,7 @@ const Sales = () => {
                             name="quantity_sold"
                             value={saleItem.quantity_sold}
                             onChange={handleChange}
-                        />
-                    </div>
-
-                    <div className="form-row">
-                        <CFormInput
-                            name="quantity_unit"
-                            placeholder='Quantity Unit'
-                            value={saleItem.quantity_unit}
-                            onChange={handleChange}
-                        />
-                    </div>
-
-                    <div className="form-row">
-                        <CFormInput
-                            type="number"
-                            name="price_per_unit"
-                            placeholder='Price Perunit'
-                            value={saleItem.price_per_unit}
-                            onChange={handleChange}
+                            required
                         />
                     </div>
 
@@ -189,7 +240,7 @@ const Sales = () => {
                     <div className="form-row">
                         <CFormInput
                             name="payment_method"
-                             placeholder='Payment Method'
+                            placeholder='Payment Method'
                             value={saleItem.payment_method}
                             onChange={handleChange}
                         />
@@ -205,10 +256,10 @@ const Sales = () => {
                     </div>
                 </div>
 
-                <CButton type="submit" className="submit-btn"  color="primary">
+                <CButton type="submit" className="submit-btn" color="primary">
                     <CIcon icon={cilSave} className="me-2"></CIcon>
-                    Submit 
-                </CButton> 
+                    Submit
+                </CButton>
             </CForm>
         </div>
     )

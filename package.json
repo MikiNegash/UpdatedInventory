@@ -23,7 +23,7 @@
     "@coreui/coreui": "^5.3.1",
     "@coreui/icons": "^3.0.1",
     "@coreui/icons-react": "^2.3.0",
-    "@coreui/react": "^5.5.0",
+    "@coreui/react": "^5.7.1",
     "@coreui/react-chartjs": "^3.0.0",
     "@coreui/utils": "^2.0.2",
     "@popperjs/core": "^2.11.8",
@@ -32,6 +32,7 @@
     "classnames": "^2.5.1",
     "core-js": "^3.40.0",
     "file-saver": "^2.0.5",
+    "formik": "^2.4.6",
     "jspdf": "^3.0.1",
     "jspdf-autotable": "^5.0.2",
     "notistack": "^3.0.2",
@@ -42,7 +43,8 @@
     "react-router-dom": "^7.1.5",
     "redux": "5.0.1",
     "simplebar-react": "^3.3.0",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "yup": "^1.7.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",

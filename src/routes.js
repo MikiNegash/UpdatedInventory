@@ -4,6 +4,7 @@ const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Login = React.lazy(() => import('./views/pages/login/Login'))
 const Sales = React.lazy(() => import('./views/AddSales/Sales'))
 const SalesReport =  React.lazy(() => import('./views/ViewSales/SalesReport'))
+const Product = React.lazy(() => import('./views/AddProduct/Product'))
 const ViewStock =  React.lazy(() => import('./views/ViewStock/ViewStock'))
 const Stock =  React.lazy(() => import('./views/AddStock/Stock'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
@@ -64,6 +65,7 @@ const routes = [
   { path: '/Stock', name: 'stock', element: Stock},
   { path: '/ViewStock', name: 'viewstock', element: ViewStock},
   { path: '/salesReport', name: 'SalesReport', element: SalesReport },
+  { path: '/product', name: 'Product', element: Product },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
